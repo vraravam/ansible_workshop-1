@@ -1,0 +1,4 @@
+---
+- name: Install java 8
+  yum: name=java-{{java_version}}-openjdk state=present
+  become: yes

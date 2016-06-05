@@ -2,3 +2,4 @@
 - hosts: web
   roles:
     - ansible-user
+    - java
