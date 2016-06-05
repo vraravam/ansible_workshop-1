@@ -14,7 +14,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     machine.vm.hostname = "web.com"
     machine.vm.network :private_network, ip: "192.168.99.102"
     machine.vm.box = "centos/7"
-    machine.vm.network "forwarded_port", guest: 80, host: 8081
+    machine.vm.network :forwarded_port, guest: 22, host: 2223, id: 'ssh'
+  end
+
+  config.vm.define 'db' do |machine|
+    machine.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "2048"]
+    end
+
+    machine.vm.hostname = "db.com"
+    machine.vm.network :private_network, ip: "192.168.99.103"
+    machine.vm.box = "centos/7"
+    config.vm.network :forwarded_port, guest: 22, host: 2224, id: 'ssh'
   end
 
 #  config.vm.provision :ansible do |ansible|

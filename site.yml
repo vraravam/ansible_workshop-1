@@ -3,3 +3,8 @@
   roles:
     - ansible-user
     - java
+
+- hosts: db
+  roles:
+    - ansible-user
+    - postgres
