@@ -1,0 +1,11 @@
+Fix issue with vagrant chosing right provider
+mv .vagrant/machines/web/VirtualBox .vagrant/machines/web/virtualbox
+
+Command to generate ssh key pair
+ssh-keygen -t rsa -b 4096 -C "deepans@thoughtworks.com"
+
+Create ansible user as root user
+ansible-playbook -i inventories/dev.inv site.yml --user=vagrant --ask-pass -vvvv
+
+Run playbook as ansible user
+ansible-playbook -i inventories/dev.inv site.yml --user=ansible --private-key=keys/id_rsa_insecure_key -vvvv

@@ -1,0 +1,4 @@
+---
+- name: creates an ansible service user
+  user: name={{ ansible_username }} groups=users,wheel append=yes uid=6666
+  sudo: yes

@@ -1,0 +1,28 @@
+---
+- name: creates an ansible service user
+  user: name={{ ansible_username }} groups=users,wheel append=yes uid=6666
+  become: yes
+
+- name: Load Ansible User Key
+  authorized_key: user={{ ansible_username }} key="{{ lookup('file', 'keys/id_rsa_insecure_key.pub' ) }}"
+  become: yes
+
+- name: Sudoers | update sudoers file and validate
+  lineinfile: "dest='/etc/sudoers.d/00-ansible-access-user' owner=root group=root mode=0440
+              insertafter=EOF
+              line='{{ ansible_username }} ALL=(ALL) NOPASSWD: ALL'
+              regexp='{{ ansible_username }} ALL=.ALL. NOPASSWD: ALL'
+              state=present
+              create=yes
+              validate='visudo -cf %s'"
+  become: yes
+
+- name: Sudoers | update sudoers file and validate
+  lineinfile: "dest='/etc/sudoers.d/00-ansible-access-user' owner=root group=root mode=0440
+              insertafter=EOF
+              line='Defaults:{{ ansible_username }}    !requiretty'
+              regexp='Defaults.{{ ansible_username }}    .requiretty'
+              state=present
+              create=yes
+              validate='visudo -cf %s'"
+  become: yes
