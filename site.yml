@@ -3,6 +3,7 @@
   roles:
     - ansible-user
     - java
+    - nginx
 
 - hosts: db
   roles:
