@@ -4,6 +4,7 @@
     - ansible-user
     - java
     - nginx
+    - karumpalakai-server
 
 - hosts: db
   roles:

@@ -1,0 +1,38 @@
+---
+   - name: creates a service user
+     user: name=karumpalakai system=yes
+     sudo: yes
+
+   - name: create directory to store JAR artifacts to be served
+     file: path=/application owner=karumpalakai group=karumpalakai mode=0755 state=directory recurse=yes
+     sudo: yes
+
+   - name: download karumpalakai jar
+     get_url: url=https://github.com/deepan/ansible_workshop/blob/master/jar/Karum_palakai-1.0-SNAPSHOT.jar dest=/application/Karum_palakai-1.0-SNAPSHOT.jar mode=0755 owner=karumpalakai group=karumpalakai
+     sudo: yes
+
+   - file: path=/application owner=karumpalakai group=karumpalakai mode=0755 state=directory
+     sudo: yes
+
+   - template: src=initd.sh dest=/etc/init.d/karumpalakai mode=0755
+     sudo: yes
+
+   - file: path=karumapalakai owner=karumpalakai group=karumpalakai mode=0755 state=directory recurse=yes
+     sudo: yes
+
+   - command: chkconfig --add karumpalakai
+     sudo: yes
+
+   - command: chkconfig karumpalakai on
+     sudo: yes
+
+   - name: Stop service
+     service: name=karumpalakai state=stopped
+     sudo: yes
+
+   - name: Start service
+     service: name=karumpalakai state=started
+     sudo: yes
+
+
+
