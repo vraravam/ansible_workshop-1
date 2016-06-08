@@ -1,2 +1,4 @@
 ---
 - include: install-nginx.yml
+
+- include: serve-ui-app.yml

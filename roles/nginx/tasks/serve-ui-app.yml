@@ -1,0 +1,14 @@
+---
+  - name: create directory to store ui artifacts to be served
+    file: path=/usr/share/nginx/ui owner=nginx group=nginx mode=0755 state=directory recurse=yes
+    sudo: yes
+
+  - name: Download the ui artifacts
+    get_url: url=https://github.com/deepan/ansible_workshop/blob/master/README dest=/usr/share/nginx/ui/index.html mode=0755 owner=nginx group=nginx
+    sudo: yes
+
+  - name: NGINX | Restart NGINX
+    service:
+      name: nginx
+      state: restarted
+    sudo: yes

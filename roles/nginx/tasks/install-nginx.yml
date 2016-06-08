@@ -14,3 +14,14 @@
       name: nginx
       state: started
     sudo: yes
+  - name: Update nginx conf
+    template: >
+        src=my_server.conf.j2
+        dest=/etc/nginx/conf.d/my_server.conf
+        backup=yes
+    sudo: yes
+  - name: NGINX | Restart NGINX
+    service:
+      name: nginx
+      state: restarted
+    sudo: yes
