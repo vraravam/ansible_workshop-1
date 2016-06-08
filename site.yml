@@ -1,12 +1,24 @@
 ---
-- hosts: web
+- hosts: all
   roles:
     - ansible-user
-    - java
-    - nginx
-    - karumpalakai-server
+  tags: base-provision
+
+- hosts: web
+  roles:
+    - provision-java
+    - provision-nginx
+    - provision-postgres-client
+  tags: provision
 
 - hosts: db
   roles:
-    - ansible-user
-    - postgres
+    - provision-postgres
+    - provision-db
+  tags: provision
+
+- hosts: web
+  roles:
+    - deploy-ui
+  tags: deploy
+

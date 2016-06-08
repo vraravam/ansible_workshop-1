@@ -1,0 +1,8 @@
+---
+- name: Download PostgreSQL Repo Package
+  get_url: url=http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm dest=/usr/src/pgdg-centos93-9.3-1.noarch.rpm
+  sudo: yes
+
+- name: Install PostgreSQL Repo Package
+  yum: name=/usr/src/pgdg-centos93-9.3-1.noarch.rpm state=present
+  sudo: yes

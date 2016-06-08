@@ -1,0 +1,24 @@
+---
+- name: installing dependency to manage database and users with ansible
+  yum: name=python-psycopg2 state=present
+  sudo: yes
+
+- name: copying template to temp folder
+  template: src=create_user.psql.j2 dest=/tmp/create_user.psql
+
+- name: restarting postgres
+  service: name=postgresql-9.3 state=restarted
+  sudo: true
+
+- name: Creating database user
+  command: su - postgres -c "psql -f /tmp/create_user.psql"
+  sudo: yes
+
+- name: Creating database karumpalakai
+  postgresql_db: name=karumpalakai
+    encoding='UTF-8'
+    login_host=localhost
+    login_user={{db_username}}
+    login_password={{db_password}}
+    owner={{db_username}}
+    template=template0

@@ -1,0 +1,20 @@
+---
+  - name: Update nginx conf
+    template: >
+        src=nginx.conf.j2
+        dest=/etc/nginx/conf.d/nginx.conf
+        backup=yes
+    sudo: yes
+
+  - name: create directory to store karumpalakai ui artifacts to be served
+    file: path=/usr/share/nginx/karumpalakai owner=nginx group=nginx mode=0755 state=directory recurse=yes
+    sudo: yes
+
+  - name: Download the karumpalakai ui artifacts
+    get_url: url=https://raw.githubusercontent.com/deepan/karumpalakai_client/master/{{item}} dest=/usr/share/nginx/karumpalakai/{{item}} mode=0755 owner=nginx group=nginx
+    sudo: yes
+    with_items:
+      - bundle.js
+      - index.html
+    notify:
+      - restart NGINX

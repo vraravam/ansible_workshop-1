@@ -1,0 +1,13 @@
+---
+- name: Add custom hba access file
+  template: >
+    src=pg_hba.conf
+    dest=/var/lib/pgsql/9.3/data/pg_hba.conf
+    owner=postgres
+    group=postgres
+    mode=600
+  sudo: yes
+
+- name: Enable connections from outside
+  lineinfile: dest=/var/lib/pgsql/9.3/data/postgresql.conf line="listen_addresses = '*'"
+  sudo: yes

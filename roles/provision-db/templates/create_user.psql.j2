@@ -1,0 +1,13 @@
+do
+$body$
+declare
+  num_users integer;
+  num_databases integer;
+begin
+   SELECT count(*) into num_users FROM pg_user WHERE usename = '{{db_username}}';
+   IF num_users = 0 THEN
+      CREATE ROLE {{db_username}} LOGIN CREATEROLE CREATEDB PASSWORD '{{db_password}}';
+   END IF;
+end
+$body$
+;

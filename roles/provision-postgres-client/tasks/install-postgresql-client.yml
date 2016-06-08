@@ -1,0 +1,6 @@
+---
+- name: Install PostgreSQL Packages
+  yum: name={{ item }} state=present
+  sudo: yes
+  with_items:
+    - postgresql93

@@ -1,0 +1,15 @@
+---
+- name: Install PostgreSQL Packages
+  yum: name={{ item }} state=present
+  sudo: yes
+  with_items:
+    - postgresql93-server
+
+- stat: path=/var/lib/pgsql/9.3/data/pg_hba.conf
+  register: postgres_config 
+  sudo: yes
+
+- name: Init DB
+  command: /usr/pgsql-9.3/bin/postgresql93-setup initdb
+  when: postgres_config.stat.path is not defined
+  sudo: yes    

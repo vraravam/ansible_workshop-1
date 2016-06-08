@@ -2,3 +2,5 @@
 - include: include-pgdg93.yml
 
 - include: install-postgresql.yml
+
+- include: config-firewall.yml
