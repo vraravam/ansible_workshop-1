@@ -22,3 +22,8 @@
     - deploy-ui
   tags: deploy
 
+- hosts: web
+  roles:
+    - karumpalakai-server
+  tags: deploy
+
