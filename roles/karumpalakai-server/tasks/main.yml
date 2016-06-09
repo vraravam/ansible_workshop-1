@@ -8,7 +8,7 @@
      sudo: yes
 
    - name: download karumpalakai jar
-     get_url: url=https://github.com/deepan/ansible_workshop/blob/master/jar/Karum_palakai-1.0-SNAPSHOT.jar?raw=true dest=/application/Karum_palakai-1.0-SNAPSHOT.jar mode=0755 owner=karumpalakai group=karumpalakai
+     get_url: url=https://github.com/deepan/karumpalakai_server/blob/master/jar/Karum_palakai-1.0-SNAPSHOT.jar?raw=true dest=/application/Karum_palakai-1.0-SNAPSHOT.jar mode=0755 owner=karumpalakai group=karumpalakai force=yes
      sudo: yes
 
    - file: path=/application owner=karumpalakai group=karumpalakai mode=0755 state=directory
